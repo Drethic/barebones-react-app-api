@@ -7,7 +7,7 @@
     "test": "cross-env MODE_ENV=testing jest",
     "test:watch": "cross-env MODE_ENV=testing jest --watch",
     "server": "cross-env MODE_ENV=development nodemon -r dotenv/config  index.js",
-    "start": "cross-env MODE_ENV=production node index"
+    "start": "node index"
   },
   "jest": {
     "testEnvironment": "node"
