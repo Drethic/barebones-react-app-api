@@ -34,15 +34,23 @@ module.exports = {
     client: 'mysql',
       connection: {
         host : 'us-cdbr-east-06.cleardb.net',
-        user : 'bcd3a892affde9',
-        password : 'be75ab66',
-        database : 'heroku_43185ac3ba2fb6f'
+        user : 'b5a65b2732dae3',
+        password : '0ed3e2df',
+        database : 'heroku_d1afb5c97051740'
       },
       migrations: {
         directory: './database/migrations',
         tableName: 'dbmigrations',
       },
       seeds: { directory: './database/seeds' }
+  },
+
+   // this is needed when using foreign keys
+   pool: {
+    afterCreate: (conn, done) => {
+      // runs after a connection is made to the sqlite engine
+      conn.run("PRAGMA foreign_keys = ON", done) // turn on FK enforcement
+    },
   },
    
 };
