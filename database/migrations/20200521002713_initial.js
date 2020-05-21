@@ -10,7 +10,7 @@ exports.up = async function(knex) {
    await knex.schema.createTable('categories', (table) => {
          table.increments("id"),
          table.varchar("name", 120).notNull().unique(),
-         table.varchar("description", 250)
+         table.varchar("description", 250).default(null)
    })
 
    await knex.schema.createTable('ingredients', (table) => {
@@ -36,8 +36,10 @@ exports.up = async function(knex) {
                 .onDelete("CASCADE")
                 .onUpdate('CASCADE'),        
          table.varchar("title", 120).notNull(),
-         table.varchar("source", 150),
-         table.varchar("description", 250).notNull()       
+         table.varchar("source", 150).default(null),
+         table.varchar("description", 250).notNull(), 
+         table.varchar("image_link", 250).default(null)
+               
    }) 
 
    await knex.schema.createTable("recipes_ingredients", (table) => {                     
