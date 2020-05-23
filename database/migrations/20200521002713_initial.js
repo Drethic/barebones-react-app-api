@@ -59,7 +59,7 @@ exports.up = async function(knex) {
                 .onDelete("CASCADE")
                 .onUpdate('CASCADE'),  
          table.float("quantity").notNull()
-         table.primary(["recipe_id","ingredient_id","unit_id"])                      
+         table.primary(["recipe_id","ingredient_id"])                      
              
     }) 
 

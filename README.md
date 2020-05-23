@@ -89,55 +89,55 @@ https://webunit4-secret-family-recipes.herokuapp.com
 | GET          | /api/users/:id                 | Returns User By ID      |
 | PUT          | /api/users/:id                 | Update User             |
 | DELETE       | /api/users/:id                 | Remove User             |
+| GET          | /api/users/:id/recipes         | Get Recipes By User ID  |
+
 ​
 ## Categories 
-| Request Type | Endpoint                       | Description             |
-|:------------:|:------------------------------:|:-----------------------:|
-| GET          | api/categories                 | Get All categories      |
-| GET          | api/categories/:id             | Get category by id      |
-| POST         | api/categories                 | Add category            |
-| PUT          | api/categories/:id             | Update category         |
-| DELETE       | api/categories/:id             | Remove category         |
+| Request Type | Endpoint                       | Description                 |
+|:------------:|:------------------------------:|:---------------------------:|
+| GET          | api/categories                 | Get All Categories          |
+| GET          | api/categories/:id             | Get Category By ID          |
+| POST         | api/categories                 | Add Category                |
+| PUT          | api/categories/:id             | Update Category             |
+| DELETE       | api/categories/:id             | Remove Category             |
+| GET          | /api/categories/:id/recipes    | Get Recipes By Category ID  |
+
 ​
 ## ingredients
 | Request Type | Endpoint                       | Description             |
 |:------------:|:------------------------------:|:-----------------------:|
-| GET          | api/ingredients                | Get All ingredients     |
-| GET          | api/ingredients/:id            | Get ingredient by id    |
-| POST         | api/ingredients                | Add ingredient          |
-| PUT          | api/ingredients/:id            | Update ingredient       |
-| DELETE       | api/ingredients/:id            | Remove ingredient       |
+| GET          | api/ingredients                | Get All Ingredients     |
+| GET          | api/ingredients/:id            | Get Ingredient By ID    |
+| POST         | api/ingredients                | Add Ingredient          |
+| PUT          | api/ingredients/:id            | Update Ingredient       |
+| DELETE       | api/ingredients/:id            | Remove Ingredient       |
 ​
 ​
 ## units
 | Request Type | Endpoint                       | Description             |
 |:------------:|:------------------------------:|:-----------------------:|
-| GET          | api/units                      | Get All units           |
-| GET          | api/units/:id                  | Get unit by id          |
-| POST         | api/units                      | Add unit                |
-| PUT          | api/units/:id                  | Update unit             |
-| DELETE       | api/units/:id                  | Remove unit             |
+| GET          | api/units                      | Get All Units           |
+| GET          | api/units/:id                  | Get Unit By ID          |
+| POST         | api/units                      | Add Unit                |
+| PUT          | api/units/:id                  | Update Unit             |
+| DELETE       | api/units/:id                  | Remove Unit             |
+
 ​
 ​
 ## recipes
-| Request Type | Endpoint                       | Description             |
-|:------------:|:------------------------------:|:-----------------------:|
-| GET          | api/recipes                    | Get All recipes         |
-| GET          | api/recipes/:filter            | Get recipes by filter   |
-| GET          | api/recipes/:id                | Get recipe by id        |
-| POST         | api/recipes                    | Add recipe              |
-| PUT          | api/recipes/:id                | Update recipe           |
-| DELETE       | api/recipes/:id                | Remove recipe           |
-​
-## recipes_ingredients
-| Request Type | Endpoint                       | Description                  |
-|:------------:|:------------------------------:|:----------------------------:|
-| GET          | api/recipes_ingredients        | Get All recipes ingredients  |
-| GET          | api/recipes_ingredients/:id    | Get recipe ingredient by id  |
-| POST         | api/recipes_ingredients        | Add recipe ingredients       |
-| PUT          | api/recipes_ingredients/:id    | Update recipe ingredients    |
-| DELETE       | api/recipes_ingredients/:id    | Remove recipes ingredients   |
-​
+| Request Type | Endpoint                                 | Description                  |
+|:------------:|:----------------------------------------:|:----------------------------:|
+| GET          | api/recipes                              | Get All Recipes              |
+| GET          | api/recipes/:id                          | Get Recipe By ID             |
+| POST         | api/recipes                              | Add Recipe                   |
+| PUT          | api/recipes/:id                          | Update Recipe                |
+| DELETE       | api/recipes/:id                          | Remove Recipe                |
+| GET          | api/recipes/:id/ingredients              | Get Recipe Ingredients       |
+| POST         | api/recipes/:id/ingredients              | Add Recipe Ingredient        |
+| PUT          | api/recipes/:id/ingredients/:ingred_id   | Update Recipe Ingredient     |
+| DELETE       | api/recipes/:id/ingredients/:ingred_id   | Remove Recipe Ingredient     |
+
+
 ​
 ## recipes_instructions
 | Request Type | Endpoint                       | Description                  |
@@ -149,6 +149,13 @@ https://webunit4-secret-family-recipes.herokuapp.com
 | DELETE       | api/recipes_instructions/:id   | Remove recipe instruction    | 
 ​
 <!-- 
+add function "isUserRecipeIngred" for updatRecipeIngredient and deleteRecipeIngredient
+add function "validateUnit", "validateCategory" for add, update, ingredient agains recipe
+updateRecipeIngredient promise reture have issue  122 recipes-model.js
+Naveed use action at some place but not use
+Naveed not add restrict method in delete method 
+Naveed chk function use two time await
+
 # API
 ​
 ## Auth Routes:
