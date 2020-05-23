@@ -5,6 +5,13 @@ exports.seed = async function(knex) {
     {name:"Onion"},
     {name:"Garlic"},
     {name:"Potato"},
-    {name:"Tomatoes"}       
+    {name:"Tomatoes"},
+    {name: 'cheese'},    
+    {name: 'garlic powder'},
+    {name: 'red bell pepper'},
+    {name: 'Green Bell Pepper'},
+    {name: 'Ground Turkey'},
+    {name: 'Italian Sausage'},
+    {name: 'egg'}     
   ])
 };
