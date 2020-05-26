@@ -6,11 +6,11 @@ const jwt = require("jsonwebtoken");
 
 
 router.post("/register", validateUserData('register'), async (req, res, next) => {
-    
+
     try {
         const {email} = req.body
         const user = await Users.findBy({email}).first()
-    
+
         if(user) {
           res.status(409).json({"message": "Email is already taken"})
         } else {
@@ -18,11 +18,11 @@ router.post("/register", validateUserData('register'), async (req, res, next) =>
                 name:req.body.name,
                 email:req.body.email,
                 password:req.body.password
-            }          
+            }
             const user = await Users.register(payload);
             return res.status(201).json(user);
         }
-       
+
       } catch(err) {
         next(err);
     }
@@ -33,12 +33,12 @@ router.post("/login", validateUserData('login'), async (req, res, next) => {
     const authError = {
         message: "Incorrect credentials"
     }
-    
+
     try {
 
         const {email, password} = req.body;
         const user = await Users.findBy({email});
-       
+
         if(!user) {
            return res.status(401).json(authError);
         }
@@ -49,11 +49,11 @@ router.post("/login", validateUserData('login'), async (req, res, next) => {
             return res.status(401).json(authError);
         }
 
-        const payload = { 
+        const payload = {
             id: user.id,
             name: user.name
         }
-       
+
         const token = jwt.sign(payload, process.env.JWT_SECRET);
 
         //set Cookie
@@ -67,30 +67,47 @@ router.post("/login", validateUserData('login'), async (req, res, next) => {
     } catch(err) {
         next(err);
     }
- 
+
+})
+
+router.post("/logout", validateUserData('logout'), async (req, res, next) => {
+  try {
+    const { id } = req.body
+    const user = await Users.findById({ id }).first()
+
+    if (user) {
+      return res.status(404).json({ "message": "User not found, unable to log out" })
+    }
+    res.clearCookie('token');
+    return res.status(200).json({ message: 'Goodbye' });
+  } catch (err) {
+    next(err);
+  }
 })
 
 function validateUserData(action) {
 
     return async (req, res, next) => {
- 
+
         if(req.body.constructor === Object && Object.keys(req.body).length ===0) {
- 
+
             res.status(404).json({message: "missing user data"})
- 
+
         } else if(action === 'register' && (!req.body.name || !req.body.email || !req.body.password )) {
- 
+
             res.status(404).json({message: "missing name, email or password field"})
- 
-        } 
+
+        }
         else if(action === 'login' && (!req.body.email || !req.body.password )) {
- 
+
             res.status(404).json({message: "missing email or password field"})
- 
+
+        } else if (action === 'logout' && (!req.body.id)) {
+          res.status(404).json({ message: "missing id" })
         } else {
             next()
-        }        
- 
+        }
+
     }
  }
 
