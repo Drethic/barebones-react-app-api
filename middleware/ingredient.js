@@ -5,39 +5,39 @@ module.exports = {
     validateIngredientData(action) {
 
         return async (req, res, next) => {
-     
+
             if(req.body.constructor === Object && Object.keys(req.body).length ===0) {
-     
+
                 res.status(404).json({message: "missing ingredient data"});
-     
+
             } else if(action === 'add' && (!req.body.name )) {
-     
+
                 res.status(404).json({message: "missing name field"});
-     
-            } 
+
+            }
             else if(action === 'update' && !req.body.name ) {
-     
+
                 res.status(404).json({message: "missing name field"});
-     
+
             } else {
                 next();
-            }        
-     
+            }
+
         }
     },
 
-    validateIngredientId: () => { 
-    
+    validateIngredientId: () => {
+
         return async (req, res, next) => {
            try {
               const ingredient = await Ingredients.findById(req.params.id);
-              if(!ingredient) { 
+              if(!ingredient) {
                  res.status(404).json({message: "Record not exist"});
               } else {
-                 req.ingredient = ingredient;            
+                 req.ingredient = ingredient;
                  next();
               }
-     
+
            } catch(err) {
               next(err);
            }
@@ -45,24 +45,21 @@ module.exports = {
      },
 
      isIngredientUnique: (action) =>  {
-
         return async (req, res, next) => {
-            
-            try {  
-                    
+            try {
                 const payload = {
                     id: req.params.id || '',
                     name: req.body.name
                 }
-                
-                const ingredient = await Ingredients.checkIngredient(payload);
 
-                if(ingredient) {
-                    return res.status(404).json({message: "Ingredient is already exist."});    
+                const ingredient = await Ingredients.checkIngredient(payload);
+                if (ingredient) {
+                    // return res.status(404).json({message: "Ingredient is already exist."});
+                    // Return the existing ingredient
+                    return res.status(201).json(ingredient);
                 } else {
-                    next();             
+                    next();
                 }
-     
             } catch (err) {
                   next(err)
             }
